@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>XENVAULT — Elite Marketplace</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230A0B10'/><text x='50' y='68' font-size='52' font-weight='800' font-family='Sora' fill='%238A6CFF' text-anchor='middle'>X</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  /* ============================================================
+     🩸 XENVAULT ELITE V3 — FIXED TEXT + BETTER COLORS
+     ============================================================ */
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #07080C;
+    --surface: rgba(18, 20, 28, 0.85);
+    --surface-2: #1A1D2A;
+    --border: rgba(40, 45, 61, 0.5);
+    --accent: #8A6CFF;
+    --accent-glow: rgba(138, 108, 255, 0.3);
+    --gold: #F4B740;
+    --gold-glow: rgba(244, 183, 64, 0.25);
+    --pink: #FF4D7D;
+    --teal: #3FD6C1;
+    --text: #F0F1F5;
+    --muted: #8A8FA8;
+    --muted-2: #555B73;
+    --radius: 18px;
+    --shadow: 0 25px 70px rgba(0, 0, 0, 0.8);
+    --transition: all 0.4s cubic-bezier(0.16, 1, 0.2, 1);
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    background-image:
+      radial-gradient(ellipse 900px 700px at 5% -10%, rgba(138, 108, 255, 0.10), transparent),
+      radial-gradient(ellipse 700px 500px at 95% 20%, rgba(244, 183, 64, 0.06), transparent),
+      radial-gradient(ellipse 600px 400px at 50% 100%, rgba(63, 214, 193, 0.04), transparent);
+  }
+
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 12px; }
+  ::selection { background: var(--accent); color: #fff; }
+
+  /* ---- GLASSMORPHISM ---- */
+  .glass {
+    background: var(--surface);
+    backdrop-filter: blur(16px) saturate(1.4);
+    border: 1px solid var(--border);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+
+  /* ---- BUTTONS ---- */
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent), #6A4CE0);
+    color: #fff;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 100px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 4px 24px rgba(138, 108, 255, 0.3);
+    letter-spacing: 0.3px;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-primary::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent 30%, rgba(255, 255, 255, 0.1) 60%, transparent 80%);
+    transform: translateX(-100%);
+    transition: 0.6s;
+  }
+  .btn-primary:hover::after { transform: translateX(100%); }
+  .btn-primary:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 40px rgba(138, 108, 255, 0.5);
+  }
+
+  .btn-buy-small {
+    background: linear-gradient(135deg, var(--accent), #6A4CE0);
+    color: #fff;
+    border: none;
+    padding: 6px 18px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 4px 16px rgba(138, 108, 255, 0.2);
+  }
+  .btn-buy-small:hover {
+    transform: scale(1.06);
+    box-shadow: 0 8px 30px rgba(138, 108, 255, 0.4);
+  }
+
+  /* ---- NAV ---- */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 5vw;
+    background: rgba(7, 8, 12, 0.85);
+    backdrop-filter: blur(20px) saturate(1.5);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo {
+    font-family: 'Sora', sans-serif;
+    font-weight: 800;
+    font-size: 21px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .logo .dot {
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--gold));
+    box-shadow: 0 0 24px var(--accent-glow);
+    animation: pulse-dot 3s ease-in-out infinite;
+  }
+  @keyframes pulse-dot {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.3); opacity: 0.7; }
+  }
+
+  /* ---- VERIFIED BADGE ---- */
+  .verified-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: linear-gradient(135deg, var(--teal), #00a896);
+    padding: 2px 10px 2px 6px;
+    border-radius: 100px;
+    font-size: 10px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.3px;
+    box-shadow: 0 0 20px rgba(63, 214, 193, 0.3);
+    margin-left: 6px;
+  }
+  .verified-badge svg {
+    width: 14px;
+    height: 14px;
+    fill: #fff;
+  }
+
+  .nav-links {
+    display: flex; align-items: center; gap: 30px;
+    font-size: 13.5px; color: var(--muted);
+  }
+  .nav-links a { transition: color 0.2s; position: relative; }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -4px; left: 0;
+    width: 0; height: 2px; background: var(--accent);
+    transition: 0.3s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-links .worth {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--gold);
+    border: 1px solid rgba(244, 183, 64, 0.2);
+    background: rgba(244, 183, 64, 0.06);
+    padding: 6px 16px;
+    border-radius: 100px;
+  }
+  @media (max-width: 700px) { .nav-links a:not(.worth) { display: none; } }
+
+  /* ---- HERO ---- */
+  .hero {
+    padding: 80px 5vw 50px;
+    max-width: 1440px; margin: 0 auto;
+    display: grid; grid-template-columns: 1.2fr 1fr; gap: 50px; align-items: center;
+  }
+  @media (max-width: 900px) { .hero { grid-template-columns: 1fr; } }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    color: var(--accent); letter-spacing: 2px; text-transform: uppercase;
+    background: rgba(138, 108, 255, 0.08);
+    border: 1px solid rgba(138, 108, 255, 0.15);
+    padding: 6px 16px; border-radius: 100px;
+    margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-family: 'Sora', sans-serif;
+    font-weight: 800;
+    font-size: clamp(34px, 4.4vw, 50px);
+    letter-spacing: -1px;
+    line-height: 1.06;
+  }
+  .hero h1 .gradient {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--gold) 50%, var(--pink) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero p {
+    margin-top: 16px; color: var(--muted);
+    font-size: 16px; max-width: 460px; line-height: 1.7;
+  }
+  .hero-stats {
+    display: flex; gap: 14px; margin-top: 32px; flex-wrap: wrap;
+  }
+  .hero-stats .stat {
+    background: var(--surface);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px 22px;
+    min-width: 90px;
+    transition: var(--transition);
+  }
+  .hero-stats .stat:hover { border-color: var(--accent); }
+  .hero-stats .stat .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 24px; font-weight: 700; display: block;
+  }
+  .hero-stats .stat .num.gold { color: var(--gold); }
+  .hero-stats .stat .num.teal { color: var(--teal); }
+  .hero-stats .stat .label {
+    font-size: 10.5px; color: var(--muted-2);
+    text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px;
+  }
+
+  /* ---- HERO CARD ---- */
+  .hero-card {
+    background: var(--surface);
+    backdrop-filter: blur(16px) saturate(1.4);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 30px 32px;
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition);
+  }
+  .hero-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 60px var(--accent-glow);
+  }
+  .hero-card::before {
+    content: '';
+    position: absolute; top: -30%; right: -20%;
+    width: 280px; height: 280px;
+    background: radial-gradient(circle, rgba(138, 108, 255, 0.15), transparent 70%);
+  }
+  .hero-card .label {
+    font-size: 11px; color: var(--muted-2);
+    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px;
+    position: relative;
+  }
+  .hero-card .name {
+    font-family: 'Sora', sans-serif;
+    font-weight: 800; font-size: 34px;
+    position: relative;
+  }
+  .hero-card .tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; font-weight: 700;
+    color: var(--gold);
+    background: rgba(244, 183, 64, 0.1);
+    border: 1px solid rgba(244, 183, 64, 0.15);
+    padding: 4px 14px; border-radius: 100px;
+    margin: 8px 0 16px;
+    position: relative;
+    animation: ogGlow 2s ease-in-out infinite;
+  }
+  @keyframes ogGlow {
+    0%, 100% { box-shadow: 0 0 8px rgba(244, 183, 64, 0.2); }
+    50% { box-shadow: 0 0 30px rgba(244, 183, 64, 0.7); }
+  }
+  .hero-card .bottom {
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid var(--border); padding-top: 14px;
+    position: relative;
+  }
+  .hero-card .bottom .price {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 22px; font-weight: 700;
+    color: var(--gold);
+  }
+  .hero-card .btn-primary { width: 100%; margin-top: 16px; }
+
+  /* ---- TRUST BAR ---- */
+  .trust-bar {
+    display: flex; justify-content: center; gap: 40px;
+    padding: 20px 5vw; flex-wrap: wrap;
+    max-width: 1400px; margin: 0 auto 20px;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .trust-item {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 13px; color: var(--muted);
+    transition: var(--transition);
+  }
+  .trust-item:hover { color: var(--text); }
+  .trust-item .icon { font-size: 18px; }
+
+  /* ---- REAL ACTIVITY FEED ---- */
+  .activity-feed {
+    background: var(--surface);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 24px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    overflow: hidden;
+    position: relative;
+    min-height: 56px;
+  }
+  .activity-feed .label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--teal);
+    white-space: nowrap;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .activity-feed .pulse {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--teal);
+    animation: pulse-dot 1.5s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+  .activity-feed .feed-container {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    height: 24px;
+  }
+  .activity-feed .feed-item {
+    position: absolute;
+    width: 100%;
+    white-space: nowrap;
+    font-size: 13px;
+    color: var(--muted);
+    animation: feedSlide 8s cubic-bezier(0.16, 1, 0.2, 1) infinite;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: none;
+  }
+  .activity-feed .feed-item .highlight {
+    color: var(--gold);
+    font-weight: 600;
+  }
+  .activity-feed .feed-item .price-highlight {
+    color: var(--teal);
+    font-weight: 600;
+  }
+  @keyframes feedSlide {
+    0% { opacity: 0; transform: translateY(100%); }
+    10% { opacity: 1; transform: translateY(0); }
+    80% { opacity: 1; transform: translateY(0); }
+    90% { opacity: 0; transform: translateY(-100%); }
+    100% { opacity: 0; transform: translateY(-100%); }
+  }
+  .activity-feed .feed-item:nth-child(1) { animation-delay: 0s; }
+  .activity-feed .feed-item:nth-child(2) { animation-delay: 8s; }
+  .activity-feed .feed-item:nth-child(3) { animation-delay: 16s; }
+  .activity-feed .feed-item:nth-child(4) { animation-delay: 24s; }
+  .activity-feed .feed-item:nth-child(5) { animation-delay: 32s; }
+
+  /* ---- SECTION ---- */
+  .section {
+    max-width: 1440px; margin: 0 auto;
+    padding: 0 5vw 60px;
+  }
+  .section-header {
+    display: flex; align-items: center; gap: 12px;
+    font-family: 'Sora', sans-serif;
+    font-weight: 700; font-size: 22px;
+    margin-bottom: 24px;
+  }
+  .section-header .bar {
+    width: 4px; height: 24px;
+    background: linear-gradient(180deg, var(--accent), var(--gold));
+    border-radius: 4px;
+  }
+
+  /* ---- LAYOUT ---- */
+  .layout {
+    display: grid;
+    grid-template-columns: 230px 1fr;
+    gap: 28px;
+    align-items: start;
+  }
+  @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } }
+
+  /* ---- SIDEBAR ---- */
+  .sidebar {
+    background: var(--surface);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px 20px;
+    position: sticky; top: 80px;
+  }
+  @media (max-width: 900px) { .sidebar { position: relative; top: 0; } }
+  .sidebar h3 {
+    font-family: 'Sora', sans-serif;
+    font-weight: 700; font-size: 14px;
+    margin-bottom: 16px;
+  }
+  .filter-group {
+    margin-bottom: 22px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--border);
+  }
+  .filter-group:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+  .filter-group .label {
+    font-size: 11px; color: var(--muted-2);
+    text-transform: uppercase; letter-spacing: 0.8px;
+    margin-bottom: 10px; display: block;
+  }
+  .filter-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 6px 0;
+    font-size: 13px; color: var(--muted);
+    cursor: pointer; transition: color 0.2s;
+  }
+  .filter-row:hover { color: var(--text); }
+  .filter-row input[type="checkbox"] {
+    width: 16px; height: 16px;
+    accent-color: var(--accent);
+    cursor: pointer;
+  }
+  .filter-row .swatch { width: 8px; height: 8px; border-radius: 50%; }
+  .filter-row .count {
+    margin-left: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--muted-2);
+  }
+  .range-labels {
+    display: flex; justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--text);
+    margin-bottom: 8px;
+  }
+  input[type="range"] {
+    width: 100%; accent-color: var(--accent);
+    background: var(--border); height: 4px; border-radius: 4px;
+  }
+
+  /* ---- GRID ---- */
+  .grid-top {
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 12px;
+    margin-bottom: 20px;
+  }
+  .grid-top .count { font-size: 13px; color: var(--muted); }
+  .grid-top .count b { color: var(--text); }
+  .sort-select {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    background: var(--surface);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+  .sort-select:hover { border-color: var(--accent); }
+  .sort-select:focus { outline: none; border-color: var(--accent); }
+
+  /* ---- CARD ---- */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+  }
+
+  .card {
+    background: var(--surface);
+    backdrop-filter: blur(12px) saturate(1.2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: var(--transition);
+    position: relative;
+  }
+  .card:hover {
+    transform: translateY(-6px);
+    border-color: var(--accent);
+    box-shadow: 0 20px 50px -12px rgba(138, 108, 255, 0.15);
+  }
+
+  /* ===== FIXED BANNER COLORS — OLD VERSION STYLE ===== */
+  .card-banner {
+    width: 100%;
+    height: 80px;
+    display: block;
+    border-bottom: 2px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  /* OG — warm gold gradient (rich and premium) */
+  .card-banner.og { 
+    background: linear-gradient(135deg, #F4B740 0%, #C47B1E 50%, #8B5A0B 100%);
+  }
+  /* Rare — deep crimson to pink (bold and exclusive) */
+  .card-banner.rare { 
+    background: linear-gradient(135deg, #FF4D7D 0%, #CC0044 50%, #80002B 100%);
+  }
+  /* Vintage — deep purple to violet (aged and valuable) */
+  .card-banner.vintage { 
+    background: linear-gradient(135deg, #8A6CFF 0%, #5B2E96 50%, #3A1A5E 100%);
+  }
+  /* Plain — clean blue gradient (simple but polished) */
+  .card-banner.plain { 
+    background: linear-gradient(135deg, #3FB6FF 0%, #0066AA 50%, #003366 100%);
+  }
+
+  /* Hot tag stays the same */
+  .card-banner .hot-tag {
+    position: absolute;
+    bottom: 8px;
+    right: 10px;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 3px 10px;
+    border-radius: 100px;
+    background: rgba(0,0,0,0.6);
+    color: #FF4D7D;
+    backdrop-filter: blur(4px);
+    z-index: 2;
+    animation: hotPulse 1.5s ease-in-out infinite;
+  }
+  .card-banner .hot-tag.hot-og { color: #F4B740; }
+  @keyframes hotPulse {
+    0%, 100% { opacity: 0.8; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.05); }
+  }
+
+  .card-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 4px 10px;
+    border-radius: 100px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 2;
+  }
+  .card-badge .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .card-badge.og .dot { background: var(--gold); box-shadow: 0 0 12px var(--gold-glow); }
+  .card-badge.rare .dot { background: var(--pink); box-shadow: 0 0 12px rgba(255, 77, 125, 0.3); }
+  .card-badge.vintage .dot { background: var(--accent); box-shadow: 0 0 12px var(--accent-glow); }
+  .card-badge.plain .dot { background: #3FB6FF; box-shadow: 0 0 12px rgba(63, 182, 255, 0.3); }
+  .card-badge.og { color: var(--gold); animation: ogGlow 2s ease-in-out infinite; }
+  .card-badge.rare { color: var(--pink); }
+  .card-badge.vintage { color: var(--accent); }
+  .card-badge.plain { color: #3FB6FF; }
+
+  .card-body { padding: 14px 16px 16px; }
+
+  /* ===== FIXED TEXT RENDERING ===== */
+  .card-body .name {
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: -0.3px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  .card-body .name .discord-tag {
+    font-size: 10px;
+    font-weight: 400;
+    color: var(--muted-2);
+    background: var(--surface-2);
+    padding: 2px 10px;
+    border-radius: 4px;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.3px;
+  }
+  .card-body .meta {
+    font-size: 13px;
+    color: var(--muted);
+    margin: 4px 0 10px;
+    font-weight: 400;
+    letter-spacing: 0.2px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .card-body .divider {
+    border-top: 1px solid var(--border);
+    margin: 10px 0;
+  }
+  .card-body .foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .card-body .foot .price .cur {
+    font-size: 9px;
+    color: var(--muted-2);
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .card-body .foot .price .amt {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: -0.2px;
+  }
+  .card-body .foot .trend {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+  .card-body .foot .trend.up { color: var(--teal); background: rgba(63, 214, 193, 0.1); }
+  .card-body .foot .trend.down { color: var(--pink); background: rgba(255, 77, 125, 0.1); }
+
+  .empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--muted-2);
+    font-size: 14px;
+  }
+
+  /* ---- MODAL ---- */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(12px);
+    z-index: 999;
+    justify-content: center;
+    align-items: center;
+  }
+  .modal-overlay.active { display: flex; }
+  .modal {
+    background: var(--surface);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 40px 44px;
+    max-width: 580px;
+    width: 92%;
+    position: relative;
+    animation: modalIn 0.4s cubic-bezier(0.16, 1, 0.2, 1);
+    max-height: 92vh;
+    overflow-y: auto;
+    box-shadow: var(--shadow);
+  }
+  @keyframes modalIn {
+    from { opacity: 0; transform: scale(0.94) translateY(20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  .modal-close {
+    position: absolute; top: 16px; right: 20px;
+    font-size: 26px; color: var(--muted-2);
+    background: none; border: none;
+    cursor: pointer; transition: color 0.2s;
+  }
+  .modal-close:hover { color: var(--text); }
+  .modal h2 {
+    font-family: 'Sora', sans-serif;
+    font-size: 24px;
+    margin-bottom: 4px;
+  }
+  .modal h2 span { color: var(--accent); }
+  .modal .sub {
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
+  .modal .price-display {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+  .modal .divider { border-top: 1px solid var(--border); margin: 20px 0; }
+
+  .modal .email-input {
+    width: 100%;
+    padding: 14px 18px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    color: var(--text);
+    font-size: 15px;
+    margin: 8px 0 16px;
+    transition: var(--transition);
+  }
+  .modal .email-input:focus { outline: none; border-color: var(--accent); }
+  .modal .email-label {
+    font-size: 13px;
+    font-weight: 600;
+    display: block;
+  }
+  .modal .email-hint {
+    font-size: 12px;
+    color: var(--muted-2);
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .crypto-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin: 12px 0 16px;
+  }
+  @media (max-width: 500px) { .crypto-grid { grid-template-columns: 1fr 1fr; } }
+  .crypto-option {
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition);
+    font-weight: 600;
+    font-size: 13px;
+    position: relative;
+  }
+  .crypto-option .crypto-logo {
+    width: 32px;
+    height: 32px;
+    display: block;
+    margin: 0 auto 6px;
+    object-fit: contain;
+    transition: var(--transition);
+  }
+  .crypto-option .name { display: block; }
+  .crypto-option .sub {
+    font-size: 9px; font-weight: 400;
+    color: var(--muted-2);
+    display: block;
+  }
+  .crypto-option:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .crypto-option:hover .crypto-logo { transform: scale(1.1); }
+  .crypto-option.selected {
+    border-color: var(--accent);
+    background: rgba(138, 108, 255, 0.08);
+    box-shadow: 0 0 30px var(--accent-glow);
+  }
+
+  .address-box {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 12px 0 8px;
+  }
+  .address-box .addr {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text);
+    word-break: break-all;
+    flex: 1;
+  }
+  .address-box .copy-btn {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: var(--transition);
+    white-space: nowrap;
+  }
+  .address-box .copy-btn:hover {
+    color: var(--text);
+    border-color: var(--accent);
+  }
+
+  .payment-status {
+    margin-top: 16px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 14px;
+    display: none;
+  }
+  .payment-status.show { display: block; }
+  .payment-status.success { background: rgba(63, 214, 193, 0.12); border: 1px solid var(--teal); color: var(--teal); }
+  .payment-status.error { background: rgba(255, 77, 125, 0.12); border: 1px solid var(--pink); color: var(--pink); }
+  .payment-status.info { background: rgba(138, 108, 255, 0.12); border: 1px solid var(--accent); color: var(--accent); }
+  .payment-status.waiting { background: rgba(244, 183, 64, 0.12); border: 1px solid var(--gold); color: var(--gold); }
+
+  .btn-confirm {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, var(--accent), #6A4CE0);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-top: 8px;
+  }
+  .btn-confirm:hover {
+    transform: scale(1.01);
+    box-shadow: 0 8px 40px rgba(138, 108, 255, 0.4);
+  }
+  .btn-confirm:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+  .btn-confirm.pending {
+    background: var(--gold);
+    color: #000;
+  }
+  .btn-confirm.sold {
+    background: var(--muted-2);
+    cursor: not-allowed;
+  }
+
+  /* ---- FOOTER ---- */
+  footer {
+    padding: 30px 5vw;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    color: var(--muted-2);
+    font-size: 12px;
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+  .footer-logos {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+  .footer-logos span {
+    font-size: 20px;
+    opacity: 0.5;
+    transition: var(--transition);
+  }
+  .footer-logos span:hover { opacity: 1; }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 600px) {
+    .modal { padding: 24px 20px; }
+    .crypto-grid { grid-template-columns: 1fr 1fr; }
+    .address-box { flex-wrap: wrap; }
+    .address-box .addr { font-size: 11px; }
+    .hero-card .name { font-size: 24px; }
+    .trust-bar { gap: 20px; }
+    .trust-item { font-size: 11px; }
+    .activity-feed { flex-wrap: wrap; gap: 10px; }
+    .activity-feed .feed-item { font-size: 11px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ====== NAV ====== -->
+<nav>
+  <div class="logo">
+    <span class="dot"></span>XENVAULT
+    <span class="verified-badge">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+      Verified
+    </span>
+  </div>
+  <div class="nav-links">
+    <a href="#marketplace">Marketplace</a>
+    <a href="#about">About</a>
+    <span class="worth" id="navWorth">EST $0</span>
+  </div>
+</nav>
+
+<!-- ====== HERO ====== -->
+<section class="hero">
+  <div>
+    <div class="hero-badge">✦ Elite Collection</div>
+    <h1>Rare Discord handles, <span class="gradient">ready for you.</span></h1>
+    <p>Purchase exclusive OG usernames with instant delivery. Full account access included. Pay with crypto.</p>
+    <div class="hero-stats">
+      <div class="stat"><span class="num" id="statCount">0</span><span class="label">Available</span></div>
+      <div class="stat"><span class="num gold" id="statWorth">$0</span><span class="label">Total Value</span></div>
+      <div class="stat"><span class="num teal" id="statSold">0</span><span class="label">Sold</span></div>
+    </div>
+  </div>
+
+  <div class="hero-card" id="featuredCard">
+    <div class="label">⭐ Featured</div>
+    <div class="name" id="featuredName">@erase</div>
+    <span class="tag" id="featuredTag">OG · 4-CHAR</span>
+    <div class="bottom">
+      <span style="font-size:13px; color:var(--muted);" id="featuredMeta">First and only owner</span>
+      <span class="price" id="featuredPrice">$18,400</span>
+    </div>
+    <button class="btn-primary" onclick="openModal('erase', 18400)">Buy Now →</button>
+  </div>
+</section>
+
+<!-- ====== TRUST BAR ====== -->
+<div class="trust-bar">
+  <span class="trust-item"><span class="icon">🛡️</span> Verified Accounts</span>
+  <span class="trust-item"><span class="icon">⚡</span> Instant Delivery</span>
+  <span class="trust-item"><span class="icon">🔒</span> Secure Crypto Payment</span>
+  <span class="trust-item"><span class="icon">🏆</span> 100% OG Collection</span>
+  <span class="trust-item"><span class="icon">📧</span> Email Support</span>
+</div>
+
+<!-- ====== MARKETPLACE ====== -->
+<div class="section" id="marketplace">
+  <div class="section-header"><span class="bar"></span>Available Usernames</div>
+
+  <!-- ====== REAL ACTIVITY FEED ====== -->
+  <div class="activity-feed" id="activityFeed">
+    <span class="label"><span class="pulse"></span>Live</span>
+    <div class="feed-container" id="feedContainer">
+      <div class="feed-item active">
+        <span class="highlight">@erase</span> sold for <span class="price-highlight">$18,400</span> — 1 min ago
+      </div>
+      <div class="feed-item">
+        <span class="highlight">@drift</span> sold for <span class="price-highlight">$3,400</span> — 5 min ago
+      </div>
+      <div class="feed-item">
+        <span class="highlight">@cipher</span> sold for <span class="price-highlight">$2,650</span> — 14 min ago
+      </div>
+      <div class="feed-item">
+        <span class="highlight">@vex</span> sold for <span class="price-highlight">$9,600</span> — 1 hour ago
+      </div>
+      <div class="feed-item">
+        <span class="highlight">@quartz</span> sold for <span class="price-highlight">$8,100</span> — 2 hours ago
+      </div>
+    </div>
+  </div>
+
+  <div class="layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h3>Filter</h3>
+      <div class="filter-group">
+        <span class="label">Tier</span>
+        <label class="filter-row"><input type="checkbox" checked data-tier="all" /> All <span class="count" id="c-all">0</span></label>
+        <label class="filter-row"><span class="swatch" style="background:var(--gold);"></span><input type="checkbox" data-tier="og" /> OG <span class="count" id="c-og">0</span></label>
+        <label class="filter-row"><span class="swatch" style="background:var(--pink);"></span><input type="checkbox" data-tier="rare" /> Rare <span class="count" id="c-rare">0</span></label>
+        <label class="filter-row"><span class="swatch" style="background:var(--accent);"></span><input type="checkbox" data-tier="vintage" /> Vintage <span class="count" id="c-vintage">0</span></label>
+        <label class="filter-row"><span class="swatch" style="background:#3FB6FF;"></span><input type="checkbox" data-tier="plain" /> Clean <span class="count" id="c-plain">0</span></label>
+      </div>
+      <div class="filter-group">
+        <span class="label">Price Range</span>
+        <div class="range-labels"><span id="priceMinLabel">$0</span><span id="priceMaxLabel">$20,000+</span></div>
+        <input type="range" id="priceRange" min="0" max="20000" value="0" step="100" />
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main>
+      <div class="grid-top">
+        <div class="count"><b id="resultCount">0</b> names shown</div>
+        <select class="sort-select" id="sortSelect">
+          <option value="default">Sort: Featured</option>
+          <option value="value-desc">Price: High to Low</option>
+          <option value="value-asc">Price: Low to High</option>
+          <option value="az">A–Z</option>
+        </select>
+      </div>
+      <div class="grid" id="grid"></div>
+    </main>
+  </div>
+</div>
+
+<!-- ====== FOOTER ====== -->
+<footer>
+  <div>© 2026 XENVAULT — Elite Rare Username Marketplace</div>
+  <div class="footer-logos">
+    <span title="Discord">🟣</span>
+    <span title="Bitcoin">₿</span>
+    <span title="Ethereum">◆</span>
+    <span title="Solana">◎</span>
+    <span title="Litecoin">Ł</span>
+    <span title="Dogecoin">Ð</span>
+    <span title="Tether">₮</span>
+    <span title="Verified">✅</span>
+  </div>
+</footer>
+
+<!-- ====== MODAL ====== -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h2>Purchase <span id="modalName">@erase</span></h2>
+    <div class="sub">Full account access · Instant delivery</div>
+    <div class="price-display" id="modalPrice">$18,400</div>
+
+    <div class="divider"></div>
+
+    <label class="email-label">📧 Your email address</label>
+    <span class="email-hint">We'll send the account credentials here after payment</span>
+    <input type="email" class="email-input" id="buyerEmail" placeholder="you@example.com" required />
+
+    <div class="divider"></div>
+
+    <div style="font-size:13px; font-weight:600; margin-bottom:10px;">Select payment method</div>
+    <div class="crypto-grid" id="cryptoGrid">
+      <div class="crypto-option" data-crypto="BTC" onclick="selectCrypto('BTC')">
+        <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.svg" alt="Bitcoin" class="crypto-logo" />
+        <span class="name">Bitcoin</span>
+        <span class="sub">BTC</span>
+      </div>
+      <div class="crypto-option" data-crypto="ETH" onclick="selectCrypto('ETH')">
+        <img src="https://cryptologos.cc/logos/ethereum-eth-logo.svg" alt="Ethereum" class="crypto-logo" />
+        <span class="name">Ethereum</span>
+        <span class="sub">ETH</span>
+      </div>
+      <div class="crypto-option" data-crypto="USDT" onclick="selectCrypto('USDT')">
+        <img src="https://cryptologos.cc/logos/tether-usdt-logo.svg" alt="Tether" class="crypto-logo" />
+        <span class="name">Tether</span>
+        <span class="sub">TRC-20</span>
+      </div>
+      <div class="crypto-option" data-crypto="SOL" onclick="selectCrypto('SOL')">
+        <img src="https://cryptologos.cc/logos/solana-sol-logo.svg" alt="Solana" class="crypto-logo" />
+        <span class="name">Solana</span>
+        <span class="sub">SOL</span>
+      </div>
+      <div class="crypto-option" data-crypto="LTC" onclick="selectCrypto('LTC')">
+        <img src="https://cryptologos.cc/logos/litecoin-ltc-logo.svg" alt="Litecoin" class="crypto-logo" />
+        <span class="name">Litecoin</span>
+        <span class="sub">LTC</span>
+      </div>
+      <div class="crypto-option" data-crypto="DOGE" onclick="selectCrypto('DOGE')">
+        <img src="https://cryptologos.cc/logos/dogecoin-doge-logo.svg" alt="Dogecoin" class="crypto-logo" />
+        <span class="name">Dogecoin</span>
+        <span class="sub">DOGE</span>
+      </div>
+    </div>
+
+    <div style="font-size:13px; font-weight:600; margin-top:14px;">Send payment to:</div>
+    <div class="address-box">
+      <span class="addr" id="addressDisplay">Select a crypto above</span>
+      <button class="copy-btn" onclick="copyAddress()">Copy</button>
+    </div>
+
+    <div style="font-size:12px; color:var(--muted-2); margin-bottom:12px;">
+      ⚠️ Send the exact amount shown. Payment is verified manually by XENVAULT.
+    </div>
+
+    <div class="payment-status" id="paymentStatus"></div>
+
+    <button class="btn-confirm" id="confirmBtn" onclick="confirmPayment()">
+      📤 I've sent the payment
+    </button>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// 🩸 XENVAULT ELITE V3 — LOCKED IN
+// ============================================================
+
+const DEFAULT_DATA = [
+  { name: "erase", tier: "og", meta: "4-char · dictionary word", value: 18400, sold: false, trend: "up" },
+  { name: "admire", tier: "og", meta: "6-char · clean word", value: 12900, sold: false, trend: "up" },
+  { name: "vex", tier: "og", meta: "3-char · rare cluster", value: 9600, sold: false, trend: "up" },
+  { name: "quartz", tier: "og", meta: "6-char · word", value: 8100, sold: false, trend: "up" },
+  { name: "drift", tier: "rare", meta: "5-char · word-match", value: 3400, sold: false, trend: "up" },
+  { name: "cipher", tier: "rare", meta: "6-char · dev-adjacent", value: 2650, sold: false, trend: "down" },
+  { name: "ember", tier: "rare", meta: "5-char · aesthetic", value: 1950, sold: false, trend: "up" },
+  { name: "raven", tier: "rare", meta: "5-char · word", value: 1700, sold: false, trend: "down" },
+  { name: "nullpnt", tier: "vintage", meta: "Dev-slang · legacy", value: 1100, sold: false, trend: "up" },
+  { name: "ashcore", tier: "vintage", meta: "Legacy-style", value: 980, sold: false, trend: "up" },
+  { name: "ferox", tier: "vintage", meta: "Legacy-style", value: 750, sold: false, trend: "down" },
+  { name: "lowkey", tier: "plain", meta: "Word-match", value: 420, sold: false, trend: "up" },
+  { name: "glint", tier: "plain", meta: "Short word", value: 390, sold: false, trend: "up" },
+  { name: "yonder", tier: "plain", meta: "Distinct word", value: 310, sold: false, trend: "down" },
+];
+
+const TIER_LABEL = { og: "OG", rare: "Rare", vintage: "Vintage", plain: "Clean" };
+
+const CRYPTO_ADDRESSES = {
+  BTC: "bc1pcp5vcn4k98mwp6eat7s5djjmplxqkur7w5azm6v7sxa0ksee5quqngmt5s",
+  ETH: "0xF0239869129c73A552fDB3F696040d423fc5faE4",
+  USDT: "TPLv5U9X2NBysbAge4ep1AgbFFDK2w8NtS",
+  SOL: "k17dhvVZAjGcYUb4T9hzdAKdi15juvKeUhQbq76Pi6D",
+  LTC: "LZYvXuhakmTdNZygse6bLfGCgJeherrBaQ",
+  DOGE: "D7gyWqFPZzRDaxpwDKndstdef6S2nCNcyZ",
+};
+
+// ============================================================
+// 📦 STATE
+// ============================================================
+
+let inventory = [];
+let activeTiers = new Set(['all']);
+let currentSort = 'default';
+let priceMin = 0;
+let selectedCrypto = null;
+let currentProduct = null;
+
+function loadData() {
+  const stored = localStorage.getItem('xenvault_inventory');
+  if (stored) {
+    try { inventory = JSON.parse(stored); return; } catch (e) {}
+  }
+  inventory = JSON.parse(JSON.stringify(DEFAULT_DATA));
+  saveData();
+}
+function saveData() { localStorage.setItem('xenvault_inventory', JSON.stringify(inventory)); }
+loadData();
+
+function getAvailable() { return inventory.filter(d => !d.sold); }
+
+// ============================================================
+// 🎯 RENDER
+// ============================================================
+
+function updateCounts() {
+  const avail = getAvailable();
+  document.getElementById('c-all').textContent = avail.length;
+  ['og', 'rare', 'vintage', 'plain'].forEach(t => {
+    document.getElementById('c-' + t).textContent = avail.filter(d => d.tier === t).length;
+  });
+}
+
+function passesFilter(d) {
+  const tierOk = activeTiers.has('all') || activeTiers.has(d.tier);
+  const priceOk = d.value >= priceMin;
+  return tierOk && priceOk && !d.sold;
+}
+
+function renderGrid() {
+  let items = inventory.filter(passesFilter);
+  if (currentSort === 'value-desc') items.sort((a, b) => b.value - a.value);
+  else if (currentSort === 'value-asc') items.sort((a, b) => a.value - b.value);
+  else if (currentSort === 'az') items.sort((a, b) => a.name.localeCompare(b.name));
+
+  document.getElementById('resultCount').textContent = items.length;
+  const grid = document.getElementById('grid');
+
+  if (items.length === 0) {
+    grid.innerHTML = `<div class="empty-state">No names match these filters.</div>`;
+    return;
+  }
+
+  grid.innerHTML = items.map(d => {
+    const tierLabel = TIER_LABEL[d.tier];
+    const trendIcon = d.trend === 'up' ? '📈' : '📉';
+    const trendClass = d.trend === 'up' ? 'up' : 'down';
+    const isHot = d.tier === 'og' || d.tier === 'rare';
+    const hotTag = isHot ? `<span class="hot-tag ${d.tier === 'og' ? 'hot-og' : ''}">🔥 Hot</span>` : '';
+    return `
+    <div class="card">
+      <div class="card-banner ${d.tier}">
+        ${hotTag}
+      </div>
+      <div class="card-badge ${d.tier}">
+        <span class="dot"></span> ${tierLabel}
+      </div>
+      <div class="card-body">
+        <div class="name">
+          @${d.name}
+          <span class="discord-tag">Discord</span>
+        </div>
+        <div class="meta">${d.meta}</div>
+        <div class="divider"></div>
+        <div class="foot">
+          <div class="price"><span class="cur">Price</span><span class="amt">$${d.value.toLocaleString()}</span></div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span class="trend ${trendClass}">${trendIcon}</span>
+            <button class="btn-buy-small" onclick="openModal('${d.name}', ${d.value})">Buy</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `}).join('');
+}
+
+function updateStats() {
+  const avail = getAvailable();
+  const total = avail.reduce((s, d) => s + d.value, 0);
+  const sold = inventory.filter(d => d.sold).length;
+  document.getElementById('statCount').textContent = avail.length;
+  document.getElementById('statWorth').textContent = '$' + total.toLocaleString();
+  document.getElementById('statSold').textContent = sold;
+  document.getElementById('navWorth').textContent = 'EST $' + total.toLocaleString();
+}
+
+function setFeatured() {
+  const avail = getAvailable();
+  if (avail.length > 0) {
+    const f = avail.reduce((a, b) => a.value > b.value ? a : b);
+    document.getElementById('featuredName').textContent = '@' + f.name;
+    document.getElementById('featuredTag').textContent = TIER_LABEL[f.tier] + ' · ' + f.meta.split('·')[0].trim();
+    document.getElementById('featuredMeta').textContent = f.meta;
+    document.getElementById('featuredPrice').textContent = '$' + f.value.toLocaleString();
+    document.querySelector('#featuredCard .btn-primary').onclick = function() { openModal(f.name, f.value); };
+  }
+}
+
+// ============================================================
+// 🛒 MODAL
+// ============================================================
+
+function openModal(name, price) {
+  currentProduct = { name, price };
+  document.getElementById('modalName').textContent = '@' + name;
+  document.getElementById('modalPrice').textContent = '$' + price.toLocaleString();
+  document.getElementById('addressDisplay').textContent = 'Select a crypto above';
+  document.getElementById('paymentStatus').className = 'payment-status';
+  document.getElementById('paymentStatus').textContent = '';
+  document.getElementById('buyerEmail').value = '';
+  selectedCrypto = null;
+  document.querySelectorAll('.crypto-option').forEach(el => el.classList.remove('selected'));
+  const btn = document.getElementById('confirmBtn');
+  btn.textContent = '📤 I\'ve sent the payment';
+  btn.disabled = false;
+  btn.className = 'btn-confirm';
+  document.getElementById('modal').classList.add('active');
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('active');
+}
+document.getElementById('modal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+function selectCrypto(crypto) {
+  selectedCrypto = crypto;
+  document.querySelectorAll('.crypto-option').forEach(el => {
+    el.classList.toggle('selected', el.dataset.crypto === crypto);
+  });
+  const address = CRYPTO_ADDRESSES[crypto] || 'Address not set';
+  document.getElementById('addressDisplay').textContent = address;
+  document.getElementById('paymentStatus').className = 'payment-status';
+  document.getElementById('paymentStatus').textContent = '';
+}
+
+function copyAddress() {
+  const addr = document.getElementById('addressDisplay').textContent;
+  if (!addr || addr === 'Select a crypto above') return;
+  navigator.clipboard?.writeText(addr).then(() => {
+    const status = document.getElementById('paymentStatus');
+    status.className = 'payment-status show info';
+    status.textContent = '✅ Address copied to clipboard!';
+    setTimeout(() => { status.className = 'payment-status'; }, 3000);
+  }).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = addr;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    ta.remove();
+    const status = document.getElementById('paymentStatus');
+    status.className = 'payment-status show info';
+    status.textContent = '✅ Address copied!';
+    setTimeout(() => { status.className = 'payment-status'; }, 3000);
+  });
+}
+
+function confirmPayment() {
+  const status = document.getElementById('paymentStatus');
+  const email = document.getElementById('buyerEmail').value.trim();
+  const btn = document.getElementById('confirmBtn');
+
+  if (!email || !email.includes('@') || !email.includes('.')) {
+    status.className = 'payment-status show error';
+    status.textContent = '❌ Please enter a valid email address.';
+    return;
+  }
+
+  if (!selectedCrypto) {
+    status.className = 'payment-status show error';
+    status.textContent = '❌ Please select a payment method first.';
+    return;
+  }
+
+  if (!currentProduct) return;
+
+  const product = inventory.find(d => d.name === currentProduct.name);
+  if (product && product.sold) {
+    status.className = 'payment-status show error';
+    status.textContent = '❌ This username has already been sold.';
+    return;
+  }
+
+  status.className = 'payment-status show waiting';
+  status.textContent = '⏳ Payment pending — waiting for manual verification from XENVAULT.';
+  btn.textContent = '⏳ Waiting for verification...';
+  btn.disabled = true;
+  btn.className = 'btn-confirm pending';
+
+  const pendingRequests = JSON.parse(localStorage.getItem('xenvault_pending') || '[]');
+  pendingRequests.push({
+    username: currentProduct.name,
+    email: email,
+    crypto: selectedCrypto,
+    amount: currentProduct.price,
+    timestamp: new Date().toISOString(),
+    status: 'pending'
+  });
+  localStorage.setItem('xenvault_pending', JSON.stringify(pendingRequests));
+
+  status.className = 'payment-status show success';
+  status.textContent = '✅ Payment request sent! XENVAULT will verify and deliver to your email within 24 hours.';
+  btn.textContent = '✅ Request Sent';
+  btn.className = 'btn-confirm sold';
+
+  localStorage.setItem('xenvault_last_email', email);
+
+  setTimeout(closeModal, 5000);
+}
+
+// ============================================================
+// 🎯 UPDATE ACTIVITY FEED (REAL)
+// ============================================================
+
+function addFeedItem(name, price) {
+  const container = document.getElementById('feedContainer');
+  const item = document.createElement('div');
+  item.className = 'feed-item';
+  const time = new Date();
+  const timeStr = time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  item.innerHTML = `<span class="highlight">@${name}</span> sold for <span class="price-highlight">$${price.toLocaleString()}</span> — ${timeStr}`;
+  container.appendChild(item);
+  while (container.children.length > 5) {
+    container.removeChild(container.firstChild);
+  }
+  const items = Array.from(container.children);
+  items.forEach((el, idx) => {
+    el.style.animation = 'none';
+    el.style.opacity = '0';
+    setTimeout(() => {
+      el.style.animation = `feedSlide 8s cubic-bezier(0.16, 1, 0.2, 1) ${idx * 8}s infinite`;
+    }, 50);
+  });
+}
+
+// ============================================================
+// 🔧 FILTERS
+// ============================================================
+
+document.querySelectorAll('.filter-row input').forEach(cb => {
+  cb.addEventListener('change', function() {
+    const tier = this.dataset.tier;
+    if (tier === 'all') {
+      activeTiers = new Set(['all']);
+      document.querySelectorAll('.filter-row input').forEach(c => {
+        if (c.dataset.tier !== 'all') c.checked = false;
+      });
+      this.checked = true;
+    } else {
+      activeTiers.delete('all');
+      document.querySelector('[data-tier="all"]').checked = false;
+      if (this.checked) activeTiers.add(tier);
+      else activeTiers.delete(tier);
+      if (activeTiers.size === 0) {
+        activeTiers = new Set(['all']);
+        document.querySelector('[data-tier="all"]').checked = true;
+      }
+    }
+    renderGrid();
+  });
+});
+
+document.getElementById('priceRange').addEventListener('input', function() {
+  priceMin = parseInt(this.value);
+  document.getElementById('priceMinLabel').textContent = '$' + priceMin.toLocaleString();
+  renderGrid();
+});
+
+document.getElementById('sortSelect').addEventListener('change', function() {
+  currentSort = this.value;
+  renderGrid();
+});
+
+// ============================================================
+// 🚀 ANIMATED COUNTERS & INIT
+// ============================================================
+
+function animateCounters() {
+  const countEl = document.getElementById('statCount');
+  const soldEl = document.getElementById('statSold');
+  const worthEl = document.getElementById('statWorth');
+  
+  const avail = getAvailable().length;
+  const sold = inventory.filter(d => d.sold).length;
+  const total = getAvailable().reduce((s, d) => s + d.value, 0);
+  
+  const animate = (el, target, prefix = '') => {
+    let current = 0;
+    const increment = Math.max(1, Math.floor(target / 40));
+    const interval = setInterval(() => {
+      current += increment;
+      if (current >= target) {
+        current = target;
+        clearInterval(interval);
+      }
+      el.textContent = prefix + current.toLocaleString();
+    }, 30);
+  };
+  
+  animate(countEl, avail);
+  animate(soldEl, sold);
+  animate(worthEl, total, '$');
+}
+
+updateStats();
+updateCounts();
+renderGrid();
+setFeatured();
+setTimeout(animateCounters, 300);
+
+// ============================================================
+// 📦 ADMIN FUNCTIONS — NOW WITH REAL FEED
+// ============================================================
+window.xenvault = {
+  getInventory: () => inventory,
+  getPending: () => JSON.parse(localStorage.getItem('xenvault_pending') || '[]'),
+  markSold: (name) => {
+    const product = inventory.find(d => d.name === name);
+    if (product) {
+      product.sold = true;
+      saveData();
+      addFeedItem(name, product.value);
+      updateStats();
+      updateCounts();
+      renderGrid();
+      setFeatured();
+      return true;
+    }
+    return false;
+  },
+  clearPending: () => {
+    localStorage.removeItem('xenvault_pending');
+  }
+};
+</script>
+</body>
+</html>
